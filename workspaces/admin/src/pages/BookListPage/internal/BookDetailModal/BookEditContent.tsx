@@ -71,6 +71,55 @@ export const BookEditContent: React.FC<BookEditContentProps> = ({ book, onEditCo
     }),
   });
 
+  const resizeImage = async (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const img = document.createElement('img');
+      const canvas = document.createElement('canvas');
+      const reader = new FileReader();
+  
+      reader.onload = (e) => {
+        img.src = e.target.result as string;
+        img.onload = () => {
+          const MAX_WIDTH = 192;
+          const MAX_HEIGHT = 256;
+          let width = img.width;
+          let height = img.height;
+  
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+  
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob((blob) => {
+            resolve(URL.createObjectURL(blob));
+          }, 'image/jpeg');
+        };
+      };
+  
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  useEffect(() => {
+    if (formik.values.image == null) return;
+    resizeImage(formik.values.image).then((url) => {
+      updateAvatorUrl(url);
+      return () => URL.revokeObjectURL(url);
+    });
+  }, [formik.values.image]);
+
   const [avatorUrl, updateAvatorUrl] = useState<string | undefined>(undefined);
   useEffect(() => {
     if (formik.values.image == null) return;
