@@ -70,7 +70,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
               {Array.isArray(featureList) && featureList.map(feature => (
-                <FeatureCard key={feature.id} bookId={feature.book.id} />
+                <FeatureCard book={feature.book} />
               ))}
             </Flex>
           </Box>
@@ -90,7 +90,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
             <Flex align="center" as="ul" direction="column" justify="center">
               {Array.isArray(rankingList) && rankingList.map(ranking => (
-                <RankingCard key={ranking.id} bookId={ranking.book.id} />
+                <RankingCard book={ranking.book} />
               ))}
             </Flex>
           </Box>
@@ -109,7 +109,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" gap={Space * 2} justify="flex-start">
               {Array.isArray(release.books) && (release.books).map(book => (
-                <BookCard key={book.id} bookId={book.id} />
+                <BookCard book={book} />
               ))}
             </Flex>
           </Box>

@@ -12,7 +12,7 @@ import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
-import { useBook } from '../../book/hooks/useBook';
+// import { useBook } from '../../book/hooks/useBook';
 
 const _Wrapper = styled.li`
   width: 100%;
@@ -39,11 +39,25 @@ const _AvatarWrapper = styled.div`
 `;
 
 type Props = {
-  bookId: string;
+  book: {
+    id: string;
+    name: string;
+    description: string;
+    image: {
+      id: string;
+      alt: string;
+    };
+    author: {
+      name: string;
+      image: {
+        id: string;
+        alt: string;
+      };
+    };
+  };
 };
 
-const RankingCard: React.FC<Props> = ({ bookId }) => {
-  const { data: book } = useBook({ params: { bookId } });
+const RankingCard: React.FC<Props> = ({ book }) => {
 
   const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
@@ -53,7 +67,11 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
       <_Link href={`/books/${book.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
+          {imageUrl == null ? (
+            <_ImgWrapper>
+              <Image alt={book.name} height={96} objectFit="cover" width={96} />
+            </_ImgWrapper>
+        ): (
             <_ImgWrapper>
               <Image alt={book.name} height={96} objectFit="cover" src={imageUrl} width={96} />
             </_ImgWrapper>
@@ -71,7 +89,16 @@ const RankingCard: React.FC<Props> = ({ bookId }) => {
             <Spacer height={Space * 1} />
 
             <Flex align="center" gap={Space * 1} justify="flex-end">
-              {authorImageUrl != null && (
+              {authorImageUrl == null ? (
+                <_AvatarWrapper>
+                  <Image
+                    alt={`${book.author.name}のアイコン`}
+                    height={32}
+                    objectFit="cover"
+                    width={32}
+                  />
+                </_AvatarWrapper>
+              ) : (
                 <_AvatarWrapper>
                   <Image
                     alt={`${book.author.name}のアイコン`}
