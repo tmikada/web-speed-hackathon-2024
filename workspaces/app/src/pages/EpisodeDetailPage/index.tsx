@@ -42,7 +42,7 @@ const EpisodeDetailPage: React.FC = () => {
 
 const EpisodeDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div style={{height: '100vh', width: '100%'}}>Loading...</div>}>
       <EpisodeDetailPage />
     </Suspense>
   );

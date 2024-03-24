@@ -49,7 +49,7 @@ const BookDetailPage: React.FC = () => {
   const { bookId } = useParams<RouteParams<'/books/:bookId'>>();
   invariant(bookId);
 
-  const { data: book } = useBook({ params: { bookId } });
+  const { data: book, isLoading } = useBook({ params: { bookId } });
   const { data: episodeList } = useEpisodeList({ query: { bookId } });
 
   const [isFavorite, toggleFavorite] = useAtom(FavoriteBookAtomFamily(bookId));
@@ -66,8 +66,10 @@ const BookDetailPage: React.FC = () => {
   return (
     <Box height="100%" position="relative" px={Space * 2}>
       <_HeadingWrapper aria-label="作品情報">
-        {bookImageUrl != null && (
-          <Image alt={book.name} height={256} objectFit="cover" src={bookImageUrl} width={192} />
+        {bookImageUrl == null ? (
+          <Image alt={book.name} height={256} objectFit="cover" width={192} />
+        ) : (
+          <Image alt={book.name} height={256} objectFit="cover" src={bookImageUrl} width={192} loading='lazy' />
         )}
         <Flex align="flex-start" direction="column" gap={Space * 1} justify="flex-end">
           <Box>
@@ -83,7 +85,11 @@ const BookDetailPage: React.FC = () => {
           <Spacer height={Space * 1} />
 
           <_AuthorWrapper href={`/authors/${book.author.id}`}>
-            {auhtorImageUrl != null && (
+            {auhtorImageUrl == null ? (
+              <_AvatarWrapper>
+                <Image alt={book.author.name} height={32} objectFit="cover" width={32} />
+              </_AvatarWrapper>
+            ) : (
               <_AvatarWrapper>
                 <Image alt={book.author.name} height={32} objectFit="cover" src={auhtorImageUrl} width={32} />
               </_AvatarWrapper>
@@ -125,7 +131,7 @@ const BookDetailPage: React.FC = () => {
 
 const BookDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div style={{height: '100vh', width: '100%'}}>Loading...</div>}>
       <BookDetailPage />
     </Suspense>
   );

@@ -95,7 +95,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
 
 const BookCardWithSuspense: React.FC<Props> = (props) => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div style={{width: '100%', aspectRatio: 16/9}}>Loading...</div>}>
       <BookCard {...props} />
     </Suspense>
   );

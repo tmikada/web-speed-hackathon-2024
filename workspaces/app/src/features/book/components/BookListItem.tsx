@@ -28,11 +28,25 @@ const _ImgWrapper = styled.div`
 `;
 
 type Props = {
-  bookId: string;
+  book: {
+    id?: string;
+    name?: string;
+    description?: string;
+    image?: {
+      id?: string;
+      alt?: string;
+    };
+    // episodes?: {
+    //   id?: string;
+    //   name?: string;
+    //   description?: string;
+    //   chapter?: unknown;
+    // }
+  };
 };
 
-export const BookListItem: React.FC<Props> = ({ bookId }) => {
-  const { data: book } = useBook({ params: { bookId } });
+export const BookListItem: React.FC<Props> = ({ book }) => {
+  // const { data: book } = useBook({ params: { bookId } });
 
   const imageUrl = useImage({ height: 64, imageId: book.image.id, width: 64 });
 
@@ -41,9 +55,13 @@ export const BookListItem: React.FC<Props> = ({ bookId }) => {
       <_Link href={`/books/${book.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
+          {imageUrl == null ? (
             <_ImgWrapper>
-              <Image alt={book.name} height={64} objectFit="cover" src={imageUrl} width={64} />
+              <Image alt={book.name} height={64} objectFit="cover" width={64} />
+            </_ImgWrapper>
+          ) : (
+            <_ImgWrapper>
+              <Image alt={book.name} height={64} objectFit="cover" src={imageUrl} width={64} loading='lazy' />
             </_ImgWrapper>
           )}
           <Box width="100%">

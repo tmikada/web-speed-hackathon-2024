@@ -42,7 +42,11 @@ export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
       <_Link href={`/books/${bookId}/episodes/${episode.id}`}>
         <Spacer height={Space * 1.5} />
         <Flex align="flex-start" gap={Space * 2.5} justify="flex-start">
-          {imageUrl != null && (
+          {imageUrl == null ? (
+            <_ImgWrapper>
+              <Image alt={episode.name} height={96} objectFit="cover" width={96} />
+            </_ImgWrapper>
+          ) : (
             <_ImgWrapper>
               <Image alt={episode.name} height={96} objectFit="cover" src={imageUrl} width={96} loading='lazy' />
             </_ImgWrapper>

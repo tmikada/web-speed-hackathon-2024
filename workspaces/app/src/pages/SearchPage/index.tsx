@@ -42,7 +42,7 @@ const SearchPage: React.FC = () => {
 
 const SearchPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div style={{width: '100%', aspectRatio: 16/9}}>Loading...</div>}>
       <SearchPage />
     </Suspense>
   );

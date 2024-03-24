@@ -35,15 +35,52 @@ const AuthorDetailPage: React.FC = () => {
   const { authorId } = useParams<RouteParams<'/authors/:authorId'>>();
   invariant(authorId);
 
-  const { data: author } = useAuthor({ params: { authorId } });
+  const { data: author, isLoading } = useAuthor({ params: { authorId } });
 
   const imageUrl = useImage({ height: 128, imageId: author.image.id, width: 128 });
   const bookListA11yId = useId();
 
+  if(isLoading) {
+    <Box height="100%" px={Space * 2}>
+      <_HeadingWrapper aria-label="作者情報">
+
+          <_AuthorImageWrapper>
+            <Image height={128} objectFit="cover" width={128} />
+          </_AuthorImageWrapper>
+
+
+     </_HeadingWrapper>
+
+      <Separator />
+
+      <Box aria-labelledby={bookListA11yId} as="section" maxWidth="100%" py={Space * 2} width="100%">
+        <Text as="h2" color={Color.MONO_100} id={bookListA11yId} typography={Typography.NORMAL20} weight="bold">
+          作品一覧
+        </Text>
+
+        <Spacer height={Space * 2} />
+
+        <Flex align="center" as="ul" direction="column" justify="center">
+
+              <Spacer height={Space * 2} />
+              <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
+                この作者の作品はありません
+              </Text>
+
+        </Flex>
+      </Box>
+    </Box>    
+  }
+
+
   return (
     <Box height="100%" px={Space * 2}>
       <_HeadingWrapper aria-label="作者情報">
-        {imageUrl != null && (
+        {imageUrl == null ? (
+          <_AuthorImageWrapper>
+            <Image key={author.id} alt={author.name} height={128} objectFit="cover" width={128} />
+          </_AuthorImageWrapper>
+        ) : (
           <_AuthorImageWrapper>
             <Image key={author.id} alt={author.name} height={128} objectFit="cover" src={imageUrl} width={128} />
           </_AuthorImageWrapper>
@@ -70,7 +107,7 @@ const AuthorDetailPage: React.FC = () => {
 
         <Flex align="center" as="ul" direction="column" justify="center">
           {author.books.map((book) => (
-            <BookListItem key={book.id} bookId={book.id} />
+            <BookListItem book={ book } />
           ))}
           {author.books.length === 0 && (
             <>
@@ -88,7 +125,7 @@ const AuthorDetailPage: React.FC = () => {
 
 const AuthorDetailPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div style={{height: '100vh', width: '100%'}}>Loading...</div>}>
       <AuthorDetailPage />
     </Suspense>
   );
