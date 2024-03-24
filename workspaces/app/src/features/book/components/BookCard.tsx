@@ -65,7 +65,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
         </_ImgWrapper>
       ) : (
         <_ImgWrapper>
-          <Image alt={book.image.alt} height={128} objectFit="cover" src={imageUrl} width={192} />
+          <Image alt={book.image.alt} height={128} objectFit="cover" src={imageUrl} width={192} loading='lazy' />
         </_ImgWrapper>
       )}
 
@@ -81,7 +81,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
             </_AvatarWrapper>
           ) : (
             <_AvatarWrapper>
-              <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
+              <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} loading='lazy' />
             </_AvatarWrapper>
           )}
           <Text color={Color.MONO_100} typography={Typography.NORMAL12}>
