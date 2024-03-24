@@ -5,18 +5,23 @@ import 'jimp';
 
 declare const Jimp: typeof import('jimp');
 
+// 初期化を一度だけ
+let decodeFunction;
 export async function transformJpegXLToBmp(response: Response): Promise<Response> {
-  const { decode } = await jsquashInit(undefined, {
-    locateFile: () => {},
-    wasmBinary: jsquashWasmBinary,
-  });
+  if (!decodeFunction) {
+    const { decode } = await jsquashInit(undefined, {
+      locateFile: () => {},
+      wasmBinary: jsquashWasmBinary,
+    });
+    decodeFunction = decode;
+  }
 
-  const imageData = decode(await response.arrayBuffer())!;
+  const imageData = decodeFunction(await response.arrayBuffer())!;
   const bmpBinary = await new Jimp(imageData).getBufferAsync(Jimp.MIME_BMP);
 
   return new Response(bmpBinary, {
     headers: {
-      'Cache-Control': 'no-store',
+      'Cache-Control': 'public',
       'Content-Type': 'image/bmp',
     },
   });
