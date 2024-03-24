@@ -67,40 +67,40 @@ const FeatureCard: React.FC<Props> = ({ book }) => {
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
 
   return (
-    <_Wrapper>
-      {imageUrl == null ? (
-        <_ImgWrapper>
-          <Image alt={book.image.alt} height={96} objectFit="cover" width={96} />
-        </_ImgWrapper>        
-      ) : (
-        <_ImgWrapper>
-          <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
-        </_ImgWrapper>
-      )}
+    <_Wrapper href={`/books/${book.id}`}>
+        {imageUrl == null ? (
+          <_ImgWrapper>
+            <Image alt={book.image.alt} height={96} objectFit="cover" width={96} />
+          </_ImgWrapper>        
+        ) : (
+          <_ImgWrapper>
+            <Image alt={book.image.alt} height={96} objectFit="cover" src={imageUrl} width={96} />
+          </_ImgWrapper>
+        )}
 
-      <_ContentWrapper>
-        <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
-          {book.name}
-        </Text>
-        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
-          {book.description}
-        </Text>
-
-        <Flex align="center" gap={Space * 1} justify="flex-end">
-          {authorImageUrl == null ? (
-            <_AvatarWrapper>
-              <Image alt={book.author.name} height={32} objectFit="cover" width={32} />
-            </_AvatarWrapper>
-          ) : (
-            <_AvatarWrapper>
-              <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
-            </_AvatarWrapper>
-          )}
-          <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
-            {book.author.name}
+        <_ContentWrapper>
+          <Text color={Color.MONO_100} typography={Typography.NORMAL16} weight="bold">
+            {book.name}
           </Text>
-        </Flex>
-      </_ContentWrapper>
+          <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL14}>
+            {book.description}
+          </Text>
+
+          <Flex align="center" gap={Space * 1} justify="flex-end">
+            {authorImageUrl == null ? (
+              <_AvatarWrapper>
+                <Image alt={book.author.name} height={32} objectFit="cover" width={32} />
+              </_AvatarWrapper>
+            ) : (
+              <_AvatarWrapper>
+                <Image alt={book.author.name} height={32} objectFit="cover" src={authorImageUrl} width={32} />
+              </_AvatarWrapper>
+            )}
+            <Text color={Color.MONO_100} typography={Typography.NORMAL14}>
+              {book.author.name}
+            </Text>
+          </Flex>
+        </_ContentWrapper>
     </_Wrapper>
   );
 };

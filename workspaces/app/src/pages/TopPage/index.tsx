@@ -55,12 +55,11 @@ const TopPage: React.FC = () => {
 
   return (
     <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
-      <Box as="header" maxWidth="100%" width="100%">
+      {/* <Box as="header" maxWidth="100%" width="100%">
         <CoverSection />
+      </Box> */}
 
-      </Box>
       {/* featureListが取得できたらFeatureCardを描画 */}
-      {featureList && (
       <Box as="main" maxWidth="100%" width="100%">
         <Box aria-labelledby={pickupA11yId} as="section" maxWidth="100%" mt={16} width="100%">
           <Text as="h2" color={Color.MONO_100} id={pickupA11yId} typography={Typography.NORMAL20} weight="bold">
@@ -69,14 +68,19 @@ const TopPage: React.FC = () => {
           <Spacer height={Space * 2} />
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" direction="row" gap={Space * 2} justify="flex-start">
-              {Array.isArray(featureList) && featureList.map(feature => (
+            { featureList == null ? (
+              <div style={{width: '100%', marginTop: '16px'}}>Loading...</div>
+            ) :  featureList && Array.isArray(featureList) ? featureList.map(feature => (
                 <FeatureCard book={feature.book} />
-              ))}
+              )
+            ) : (
+              <div style={{width: '100%', marginTop: '16px'}}>表示するピックアップはありません。</div>
+            )
+            }
             </Flex>
           </Box>
         </Box>
       </Box>
-      )}
 
       <Spacer height={Space * 2} />
 
@@ -121,9 +125,15 @@ const TopPage: React.FC = () => {
 
 const TopPageWithSuspense: React.FC = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TopPage />
-    </Suspense>
+    <>
+      <Box as="header" maxWidth="100%" width="100%">
+        <CoverSection />
+      </Box>
+      {/* <Suspense fallback={<div style={{width: '100%', aspectRatio: 16/9}}>Loading...</div>}> */}
+      <Suspense fallback={null}>
+        <TopPage />
+      </Suspense>
+    </>
   );
 };
 

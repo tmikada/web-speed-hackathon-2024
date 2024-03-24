@@ -14,6 +14,7 @@ const _Wrapper = styled.div`
   margin-right: -${Space * 2}px;
   margin-top: -${Space * 2}px;
   position: relative;
+  aspect-ratio: 16/9;
 `;
 
 const _SearchLink = styled(Link)`

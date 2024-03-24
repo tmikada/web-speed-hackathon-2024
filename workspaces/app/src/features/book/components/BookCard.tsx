@@ -58,7 +58,7 @@ const BookCard: React.FC<Props> = ({ book }) => {
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
 
   return (
-    <_Wrapper>
+    <_Wrapper href={`/books/${book.id}`}>
       {imageUrl == null ? (
         <_ImgWrapper>
           <Image alt={book.image.alt} height={128} objectFit="cover" width={192} />

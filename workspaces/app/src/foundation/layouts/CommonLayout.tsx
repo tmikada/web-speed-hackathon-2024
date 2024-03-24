@@ -12,11 +12,13 @@ const _Content = styled.div`
 
 export const CommonLayout: React.FC = () => {
   return (
-    <Container>
-      <_Content>
-        <Outlet />
-      </_Content>
+    <>
+      <Container>
+        <_Content>
+          <Outlet />
+        </_Content>
+      </Container>
       <Footer />
-    </Container>
+    </>
   );
 };
