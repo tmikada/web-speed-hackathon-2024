@@ -19,8 +19,9 @@
     "eslint": "8.56.0",
     "eslint-plugin-react": "7.34.0",
     "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-regexp": "2.4.0",
     "prettier": "3.1.1",
     "typescript": "5.4.2"
   },
-  "packageManager": "pnpm@8.15.4"
+  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
 }
