@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { Flex } from '../../../foundation/components/Flex';
 import { Image } from '../../../foundation/components/Image';
-import { Link } from '../../../foundation/components/Link';
+import { Link } from 'react-router-dom';
 import { Text } from '../../../foundation/components/Text';
 import { useImage } from '../../../foundation/hooks/useImage';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
@@ -67,7 +67,7 @@ const FeatureCard: React.FC<Props> = ({ book }) => {
   const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
 
   return (
-    <_Wrapper href={`/books/${book.id}`}>
+    <_Wrapper to={`/books/${book.id}`}>
         {imageUrl == null ? (
           <_ImgWrapper>
             <Image alt={book.image.alt} height={96} objectFit="cover" width={96} />
