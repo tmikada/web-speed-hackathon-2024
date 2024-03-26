@@ -51,7 +51,7 @@ const TopPage: React.FC = () => {
     setRankingList(rankingListData);
     setRelease(releaseData);
     
-  }, []);
+  }, [featureListData,rankingListData,releaseData]);
 
   return (
     <Flex align="flex-start" direction="column" gap={Space * 2} justify="center" pb={Space * 2}>
@@ -71,7 +71,7 @@ const TopPage: React.FC = () => {
             { featureList == null ? (
               <div style={{width: '100%', marginTop: '16px'}}>Loading...</div>
             ) :  featureList && Array.isArray(featureList) ? featureList.map(feature => (
-                <FeatureCard book={feature.book} />
+                <FeatureCard key={pickupA11yId} book={feature.book} />
               )
             ) : (
               <div style={{width: '100%', marginTop: '16px'}}>表示するピックアップはありません。</div>
@@ -94,7 +94,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="hidden" overflowY="hidden">
             <Flex align="center" as="ul" direction="column" justify="center">
               {Array.isArray(rankingList) && rankingList.map(ranking => (
-                <RankingCard book={ranking.book} />
+                <RankingCard key={rankingA11yId} book={ranking.book} />
               ))}
             </Flex>
           </Box>
@@ -113,7 +113,7 @@ const TopPage: React.FC = () => {
           <Box maxWidth="100%" overflowX="scroll" overflowY="hidden">
             <Flex align="stretch" gap={Space * 2} justify="flex-start">
               {Array.isArray(release.books) && (release.books).map(book => (
-                <BookCard book={book} />
+                <BookCard key={todayA11yId} book={book} />
               ))}
             </Flex>
           </Box>
