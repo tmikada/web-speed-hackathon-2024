@@ -7,7 +7,8 @@ import { Link } from 'react-router-dom';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
-import { useImage } from '../../../foundation/hooks/useImage';
+// import { useImage } from '../../../foundation/hooks/useImage';
+import { getImageUrl } from '../../../lib/image/getImageUrl';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 import { useEpisode } from '../hooks/useEpisode';
 
@@ -35,7 +36,7 @@ type Props = {
 export const EpisodeListItem: React.FC<Props> = ({ bookId, episodeId }) => {
   const { data: episode } = useEpisode({ params: { episodeId } });
 
-  const imageUrl = useImage({ height: 96, imageId: episode.image.id, width: 96 });
+  const imageUrl = getImageUrl({ format: 'jpg', height: 96, imageId: episode.image.id, width: 96 });
 
   return (
     <_Wrapper>

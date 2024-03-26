@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
 import { Separator } from '../../../foundation/components/Separator';
 import { Spacer } from '../../../foundation/components/Spacer';
 import { Text } from '../../../foundation/components/Text';
-import { useImage } from '../../../foundation/hooks/useImage';
+// import { useImage } from '../../../foundation/hooks/useImage';
+import { getImageUrl } from '../../../lib/image/getImageUrl';
 import { Color, Radius, Space, Typography } from '../../../foundation/styles/variables';
 // import { useBook } from '../../book/hooks/useBook';
 
@@ -59,8 +60,8 @@ type Props = {
 
 const RankingCard: React.FC<Props> = ({ book }) => {
 
-  const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });
-  const authorImageUrl = useImage({ height: 32, imageId: book.author.image.id, width: 32 });
+  const imageUrl = getImageUrl({ format: 'jpg', height: 96, imageId: book.image.id, width: 96 });
+  const authorImageUrl = getImageUrl({ format: 'jpg', height: 32, imageId: book.author.image.id, width: 32 });
 
   return (
     <_Wrapper>

@@ -12,7 +12,8 @@ import { Image } from '../../foundation/components/Image';
 import { Separator } from '../../foundation/components/Separator';
 import { Spacer } from '../../foundation/components/Spacer';
 import { Text } from '../../foundation/components/Text';
-import { useImage } from '../../foundation/hooks/useImage';
+// import { useImage } from '../../foundation/hooks/useImage';
+import { getImageUrl } from '../../lib/image/getImageUrl';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
 
 const _HeadingWrapper = styled.section`
@@ -37,7 +38,7 @@ const AuthorDetailPage: React.FC = () => {
 
   const { data: author, isLoading } = useAuthor({ params: { authorId } });
 
-  const imageUrl = useImage({ height: 128, imageId: author.image.id, width: 128 });
+  const imageUrl = getImageUrl({ format: 'jpg', height: 128, imageId: author.image.id, width: 128 });
   const bookListA11yId = useId();
 
   if(isLoading) {
